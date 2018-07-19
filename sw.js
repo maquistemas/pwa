@@ -7,7 +7,7 @@
  */
 
  //Asignar nombre y versión de la caché
- const CACHE_NAME = 'v1_cache_maquistemas_pwa';
+ const CACHE_NAME = 'v2_cache_maquistemas_pwa';
 
  //Ficheros a cachear en la aplicación
  var urlsToCache = [
