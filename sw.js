@@ -7,7 +7,7 @@
  */
 
  //Asignar nombre y versión de la caché
- const CACHE_NAME = 'cachestore-v1';
+ const CACHE_NAME = 'cachestore-v2';
 
  //Ficheros a cachear en la aplicación
  var urlsToCache = [
