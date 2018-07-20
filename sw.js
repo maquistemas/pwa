@@ -80,7 +80,7 @@ self.addEventListener('install', e =>{
 
 
  self.addEventListener('activate', function(event) {
-    var version = 'v2';
+    var version = 'v1';
     event.waitUntil(
       caches.keys()
         .then(cacheNames =>
