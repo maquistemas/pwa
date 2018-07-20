@@ -55,7 +55,7 @@ self.addEventListener('install', e =>{
 
  //Evento activate
  //Para que la app funcione sin conexión
- /*self.addEventListener('activate', e =>{
+ self.addEventListener('activate', e =>{
     const cacheWhitelist = [CACHE_NAME];
 
     e.waitUntil(
@@ -76,9 +76,9 @@ self.addEventListener('install', e =>{
                 self.clients.claim();
             })
     );
- });*/
+ });
 
-
+/*
  self.addEventListener('activate', function(event) {
     var version = 'v1';
     event.waitUntil(
@@ -95,7 +95,7 @@ self.addEventListener('install', e =>{
     );
   });
 
-
+*/
 
 
 
@@ -105,7 +105,7 @@ self.addEventListener('install', e =>{
 
  //Evento fetch: para traer actualización desde el servidor
  //Si no existe en la cache actual cachea lo que tiene que cachear
-/*self.addEventListener('fetch', e => {
+self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request)
             .then(res =>{
@@ -117,17 +117,17 @@ self.addEventListener('install', e =>{
                 return fetch(e.request);
             })
     );
-});*/
+});
 
 /*Estrategias */
 //cacheFirst
-self.addEventListener("fetch", function(event) {
+/*self.addEventListener("fetch", function(event) {
     event.respondWith(
       caches.match(event.request).then(function(response) {
         return response || fetch(event.request);
       })
     );
-  });
+  });*/
 
 //cacheOnly
 /*self.addEventListener('fetch', function(event) {
