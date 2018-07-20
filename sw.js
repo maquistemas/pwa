@@ -7,7 +7,7 @@
  */
 
  //Asignar nombre y versión de la caché
- const CACHE_NAME = 'v2_cache_maquistemas_pwa';
+ const CACHE_NAME = 'cachestore-v1';
 
  //Ficheros a cachear en la aplicación
  var urlsToCache = [
@@ -55,7 +55,7 @@ self.addEventListener('install', e =>{
 
  //Evento activate
  //Para que la app funcione sin conexión
- self.addEventListener('activate', e =>{
+ /*self.addEventListener('activate', e =>{
     const cacheWhitelist = [CACHE_NAME];
 
     e.waitUntil(
@@ -76,12 +76,36 @@ self.addEventListener('install', e =>{
                 self.clients.claim();
             })
     );
- });
+ });*/
+
+
+ self.addEventListener('activate', function(event) {
+    var version = 'v1';
+    event.waitUntil(
+      caches.keys()
+        .then(cacheNames =>
+          Promise.all(
+            cacheNames
+              .map(c => c.split('-'))
+              .filter(c => c[0] === 'cachestore')
+              .filter(c => c[1] !== version)
+              .map(c => caches.delete(c.join('-')))
+          )
+        )
+    );
+  });
+
+
+
+
+
+
+
 
 
  //Evento fetch: para traer actualización desde el servidor
  //Si no existe en la cache actual cachea lo que tiene que cachear
-self.addEventListener('fetch', e => {
+/*self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request)
             .then(res =>{
@@ -93,4 +117,39 @@ self.addEventListener('fetch', e => {
                 return fetch(e.request);
             })
     );
-});
+});*/
+
+/*Estrategias */
+//cacheFirst
+self.addEventListener("fetch", function(event) {
+    event.respondWith(
+      caches.match(event.request).then(function(response) {
+        return response || fetch(event.request);
+      })
+    );
+  });
+
+//cacheOnly
+/*self.addEventListener('fetch', function(event) {
+    event.respondWith(caches.match(event.request));
+  });*/
+
+  //networkFirst
+  /*self.addEventListener("fetch", function(event) {
+    event.respondWith(
+      fetch(event.request).catch(function() {
+        return caches.match(event.request);
+      })
+    );
+  });*/
+
+  //networkOnly
+  /**
+   * Este patrón es el que implementan la mayoría de webs actualmente.
+   * cuando se trate de peticiones que no vas a almacenar en el Cache Storage.
+   */
+  /* self.addEventListener("fetch", function(event) {
+    event.respondWith(
+      fetch(event.request)
+    );
+  });*/
